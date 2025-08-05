@@ -18,7 +18,7 @@
   - name: add user expense
     ansible.builtin.user:
       name: expense
-      state: add
-  
-  
+      state: adduser
+
+
     
