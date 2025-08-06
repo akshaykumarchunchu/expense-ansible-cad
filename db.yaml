@@ -32,7 +32,7 @@
       login_user: root
       login_password: ExpenseApp@1
       login_host: "{{ login_host }}"
-      filter: version
+      filter: version                 # to check wheather it's working or not withour error 
     ignore_errors: yes
     register: mysql_connection_output
   
@@ -42,5 +42,10 @@
 
   - name: setup root password
     ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ mysql_root_password }}"
-    when: mysql_connection_output.failed is true # In when condition we should {{}} braces if this is not setup first 
-                                                    # it will setup if already setup it will skip and use to connect db from above command
+    when: mysql_connection_output.failed is true # 
+    
+    # In when condition we should not use {{}} braces 
+    # If the root password is not setup initally in DB connection command. 
+    # Then we should setup root password and use when condition saying the DB connection is failed and please setup root password.
+    # If Password is already setup then it will skip the root password setup 
+    
